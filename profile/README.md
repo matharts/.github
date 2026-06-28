@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../../assets/banner.svg" alt="MathArts">
+  <img src="https://github.com/matharts/.github/blob/main/assets/banner.svg" alt="MathArts">
 </p>
 
 <h1 align="center">MathArts</h1>
