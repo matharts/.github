@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/matharts/.github/blob/main/assets/banner.svg" alt="MathArts" width="100%">
+  <img src="../assets/banner.svg" alt="MathArts" width="100%">
 </p>
 
 <h1 align="center">MathArts</h1>
@@ -35,10 +35,7 @@ MathArts 是一个专注于**中国数术数字化**的开源组织。
 
 MathArts 希望以现代计算方法重新组织这些知识，使其不再依赖经验与师承的口耳相传，而能够被清晰地表达、建模、计算、验证，并持续演进。
 
-```mermaid
-flowchart LR
-    A["中国数术"] --> B["知识体系"] --> C["数据模型"] --> D["算法模型"] --> E["软件系统"] --> F["数字基础设施"]
-```
+<img src="../assets/b1.png" width="100%">
 
 ## 为什么存在
 
