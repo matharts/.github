@@ -9,7 +9,7 @@
 - [组织主页](profile/README.md)
 - [贡献指南](CONTRIBUTING.md)
 - [行为准则](CODE_OF_CONDUCT.md)
-- [仓库结构说明](ARCHITECTURE.md)
+- [安全策略](SECURITY.md)
 - [代码风格指南](docs/code-style-guide.md)
 - [Commit 规范](docs/commit-convention.md)
 - [子仓库 README 模板](docs/readme-template.md)

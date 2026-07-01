@@ -38,7 +38,7 @@
 
 \```bash
 # 根据实际技术栈填写
-npm install @matharts/仓库名
+<安装命令>
 \```
 
 ### 使用
@@ -78,10 +78,10 @@ git clone https://github.com/matharts/仓库名.git
 cd 仓库名
 
 # 安装依赖
-npm install
+<安装依赖命令>
 
 # 运行测试
-npm test
+<运行测试命令>
 \```
 
 更多贡献相关信息，请参阅组织级 [贡献指南](https://github.com/matharts/.github/blob/main/CONTRIBUTING.md)。

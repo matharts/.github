@@ -24,6 +24,6 @@
 
 - [ ] 代码符合项目的[代码风格指南](https://github.com/matharts/.github/blob/main/docs/code-style-guide.md)
 - [ ] Commit 信息符合 [Commit 规范](https://github.com/matharts/.github/blob/main/docs/commit-convention.md)
-- [ ] 已补充或更新相关测试
+- [ ] 已补充或更新相关测试，或说明不需要测试
 - [ ] 已更新相关文档（如有必要）
 - [ ] 新增术语已记录中英映射关系
