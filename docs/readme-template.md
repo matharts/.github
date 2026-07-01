@@ -37,9 +37,7 @@
 ### 安装
 
 \```bash
-
 # 根据实际技术栈填写
-
 npm install @matharts/仓库名
 \```
 
@@ -75,18 +73,14 @@ src/
 ## 开发
 
 \```bash
-
 # 克隆
-
 git clone https://github.com/matharts/仓库名.git
 cd 仓库名
 
 # 安装依赖
-
 npm install
 
 # 运行测试
-
 npm test
 \```
 

@@ -7,7 +7,7 @@
 ## 开始之前
 
 1. 阅读项目的 README，了解它在做什么、当前处于什么阶段。
-2. 浏览已有的 [Issues](https://github.com/orgs/matharts/repositories) 和 [Discussions](https://github.com/orgs/matharts/discussions)，看看是否有人已经在讨论相似的话题。
+2. 浏览目标仓库已有的 Issues，看看是否有人已经在讨论相似的话题。
 3. 如果不确定从哪里入手，带有 `good first issue` 标签的 Issue 是好的起点。
 
 ## 参与方式
@@ -21,11 +21,13 @@
 
 1. **Fork** 目标仓库到你的账号下。
 2. 基于 `main` 分支创建你的工作分支：
+
    ```bash
    git checkout -b feat/你的功能描述
    ```
-3. 进行修改，并遵守项目的代码风格指南（见 [代码风格指南](docs/code-style-guide.md)）。
-4. 用规范的格式书写 Commit 信息（见 [Commit 规范](docs/commit-convention.md)）。
+
+3. 进行修改，并遵守项目的代码风格指南（见 [代码风格指南](https://github.com/matharts/.github/blob/main/docs/code-style-guide.md)）。
+4. 用规范的格式书写 Commit 信息（见 [Commit 规范](https://github.com/matharts/.github/blob/main/docs/commit-convention.md)）。
 5. 确保你的改动能通过现有测试（如果有），并为新功能补充测试。
 6. 推送分支并发起 **Pull Request**，说明你做了什么以及为什么。
 
@@ -59,7 +61,7 @@
 
 ## 行为准则
 
-参与 MathArts 即表示你同意遵守我们的 [行为准则](CODE_OF_CONDUCT.md)。核心原则很简单：尊重他人，就事论事，保持善意。
+参与 MathArts 即表示你同意遵守我们的 [行为准则](https://github.com/matharts/.github/blob/main/CODE_OF_CONDUCT.md)。核心原则很简单：尊重他人，就事论事，保持善意。
 
 ## 许可
 
