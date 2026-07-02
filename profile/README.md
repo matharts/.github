@@ -53,28 +53,7 @@ MathArts 希望让这些知识能够：
 
 ## 研究方向
 
-```mermaid
-mindmap
-  root((MathArts))
-    象数理论
-      象数建模
-      理论体系
-      知识表示
-    算法研究
-      推演规则
-      数学模型
-      验证体系
-    软件工程
-      数据结构
-      推演引擎
-      SDK
-      API
-    数字应用
-      AI
-      可视化
-      Web
-      Desktop
-```
+<img src="../assets/b2.svg" width="100%" />
 
 ## 愿景
 
