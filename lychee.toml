@@ -1,0 +1,23 @@
+# MathArts documentation link validation policy.
+
+no_progress = true
+max_redirects = 3
+max_retries = 3
+max_concurrency = 16
+timeout = 30
+retry_wait_time = 2
+
+# Validate only successful responses.
+accept = ["200..=299"]
+require_https = true
+insecure = false
+method = "get"
+
+# Validate anchors and relative references.
+include_fragments = true
+
+# Avoid false positives from generated or local-only files.
+exclude = [
+  "mailto:*",
+  "javascript:*"
+]
