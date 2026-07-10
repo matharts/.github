@@ -7,8 +7,8 @@
 # - impact:*、process:* 可以组合使用；
 # - area:*、package:*、platform:* 由具体仓库自行维护。
 #
-# 本文件采用 EndBug/label-sync 的配置格式：
-# https://github.com/EndBug/label-sync
+# 本文件采用 MathArts 标签同步 Action 的配置格式。
+# aliases 仅用于将旧标签迁移到正式名称，不是可继续使用的标签名。
 
 # =============================================================================
 # Type
