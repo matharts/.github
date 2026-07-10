@@ -69,10 +69,9 @@ MathArts 是由社区维护的开源项目集合，致力于建设中国数术�
 
 准备贡献代码、文档、测试、知识数据或规范时，请阅读：
 
-- [贡献指南](https://github.com/matharts/.github/blob/main/CONTRIBUTING.md)；
-- 目标仓库自己的开发文档与贡献说明；
-- [代码风格指南](https://github.com/matharts/.github/blob/main/docs/code-style-guide.md)；
-- [Commit 规范](https://github.com/matharts/.github/blob/main/docs/commit-convention.md)。
+- [贡献指南](CONTRIBUTING.md)；
+- [治理入口](GOVERNANCE.md)；
+- 目标仓库自己的开发文档、贡献说明和工程约定。
 
 与具体改动直接相关的问题，建议在对应 Issue 或 Pull Request 中讨论，以保留完整上下文。
 
@@ -80,13 +79,13 @@ MathArts 是由社区维护的开源项目集合，致力于建设中国数术�
 
 安全漏洞不得通过公开 Issue、Pull Request 或 Discussion 报告。
 
-请按照 [MathArts 安全策略](https://github.com/matharts/.github/blob/main/SECURITY.md) 使用目标仓库的私密漏洞报告入口；如果该入口不可用，再使用安全策略中提供的备用联系方式。
+请按照 [MathArts 安全策略](SECURITY.md) 使用目标仓库的私密漏洞报告入口；如果该入口不可用，再使用安全策略中提供的备用联系方式。
 
 当你无法确定问题是否属于安全漏洞时，请优先采用私密报告。
 
 ### 3.5 社区行为问题
 
-骚扰、威胁、歧视、人身攻击或其他社区行为问题，请按照 [社区行为准则](https://github.com/matharts/.github/blob/main/CODE_OF_CONDUCT.md) 报告。
+骚扰、威胁、歧视、人身攻击或其他社区行为问题，请按照 [社区行为准则](CODE_OF_CONDUCT.md) 报告。
 
 这类问题不应作为普通技术 Issue 处理。
 
@@ -159,9 +158,10 @@ MathArts 的支持主要由维护者和社区成员通过公开协作渠道提�
 
 ## 8. 相关文档
 
-- [贡献指南](https://github.com/matharts/.github/blob/main/CONTRIBUTING.md)
-- [安全策略](https://github.com/matharts/.github/blob/main/SECURITY.md)
-- [社区行为准则](https://github.com/matharts/.github/blob/main/CODE_OF_CONDUCT.md)
+- [贡献指南](CONTRIBUTING.md)
+- [治理入口](GOVERNANCE.md)
+- [安全策略](SECURITY.md)
+- [社区行为准则](CODE_OF_CONDUCT.md)
 - [MathArts Discussions](https://github.com/orgs/matharts/discussions)
 
 感谢你帮助 MathArts 建立清晰、可复现、可持续的开源协作环境。
