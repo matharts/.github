@@ -6,6 +6,7 @@ on:
       - "**/*.md"
       - ".github/**/*.yml"
       - ".github/**/*.yaml"
+      - ".github/scripts/**"
       - ".markdownlint-cli2.jsonc"
       - "lychee.toml"
 
@@ -16,13 +17,13 @@ on:
       - "**/*.md"
       - ".github/**/*.yml"
       - ".github/**/*.yaml"
+      - ".github/scripts/**"
       - ".markdownlint-cli2.jsonc"
       - "lychee.toml"
 
   workflow_dispatch:
 
   schedule:
-    # 每周一 UTC 04:41 检查外部链接是否失效。
     - cron: "41 4 * * 1"
 
 permissions:
@@ -37,7 +38,6 @@ jobs:
     name: Validate community files
     runs-on: ubuntu-latest
     timeout-minutes: 5
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
@@ -48,7 +48,6 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-
           required_files=(
             "README.md"
             "CODE_OF_CONDUCT.md"
@@ -59,44 +58,42 @@ jobs:
             "profile/README.md"
             ".github/pull_request_template.md"
           )
-
           for path in "${required_files[@]}"; do
-            if [[ ! -s "$path" ]]; then
-              echo "::error file=$path::Required community file is missing or empty."
-              exit 1
-            fi
+            test -s "$path" || exit 1
           done
 
   markdown:
     name: Lint Markdown
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
-
-      - name: Run markdownlint
-        uses: DavidAnson/markdownlint-cli2-action@v24
+      - uses: DavidAnson/markdownlint-cli2-action@v24
         with:
           config: ".markdownlint-cli2.jsonc"
           globs: "**/*.md"
+
+  references:
+    name: Validate repository references
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Check repository references
+        run: ruby .github/scripts/validate-document-references.rb
 
   links:
     name: Validate documentation links
     runs-on: ubuntu-latest
     timeout-minutes: 20
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
-
-      - name: Check links
-        uses: lycheeverse/lychee-action@v2
+      - uses: lycheeverse/lychee-action@v2
         with:
           args: >-
             --config lychee.toml
@@ -105,18 +102,3 @@ jobs:
           fail: true
           failIfEmpty: true
           jobSummary: true
-
-      - name: Check forbidden URLs
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          if grep -RInE 'https?://[^ )>]+:[^ )>]+@' . --include='*.md'; then
-            echo "::error::Credentials in documentation URLs are forbidden."
-            exit 1
-          fi
-
-          if grep -RInE '\[[^]]+\]\(http://' . --include='*.md'; then
-            echo "::error::Plain HTTP documentation links are forbidden."
-            exit 1
-          fi
