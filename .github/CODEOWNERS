@@ -1,0 +1,14 @@
+# Default owner for organization-level community configuration and documentation.
+* @lzm0x219
+
+# Changes to governance, conduct, security, and contribution policy require explicit review.
+/GOVERNANCE.md @lzm0x219
+/CODE_OF_CONDUCT.md @lzm0x219
+/SECURITY.md @lzm0x219
+/CONTRIBUTING.md @lzm0x219
+/SUPPORT.md @lzm0x219
+
+# GitHub defaults, organization profile, and shared documentation.
+/.github/ @lzm0x219
+/profile/ @lzm0x219
+/docs/ @lzm0x219
