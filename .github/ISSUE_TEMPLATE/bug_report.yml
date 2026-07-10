@@ -2,7 +2,7 @@ name: "Bug 报告"
 description: "报告可以稳定复现的错误或非预期行为"
 title: "[Bug]: "
 labels:
-  - "bug"
+  - "type: bug"
 assignees: []
 
 body:
