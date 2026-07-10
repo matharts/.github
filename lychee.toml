@@ -16,11 +16,8 @@ method = "get"
 # Validate anchor fragments and text fragments.
 include_fragments = "full"
 
-# Same-repository main-branch links are checked against the PR checkout by
-# validate-document-references.rb. Excluding them here avoids false 404s for
-# files introduced by the current pull request but not yet present on main.
+# Skip URI schemes that are not HTTP resources.
 exclude = [
   "^mailto:",
-  "^javascript:",
-  "^https://github\\.com/matharts/\\.github/(?:blob|tree)/(?:main|master)/"
+  "^javascript:"
 ]
