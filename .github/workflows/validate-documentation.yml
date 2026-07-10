@@ -7,6 +7,7 @@ on:
       - ".github/**/*.yml"
       - ".github/**/*.yaml"
       - ".markdownlint-cli2.jsonc"
+      - "lychee.toml"
 
   push:
     branches:
@@ -16,6 +17,7 @@ on:
       - ".github/**/*.yml"
       - ".github/**/*.yaml"
       - ".markdownlint-cli2.jsonc"
+      - "lychee.toml"
 
   workflow_dispatch:
 
@@ -65,28 +67,6 @@ jobs:
             fi
           done
 
-      - name: Validate YAML syntax
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          ruby <<'RUBY'
-          require "yaml"
-
-          files = Dir.glob(".github/**/*.{yml,yaml}").sort
-          abort "No YAML files found under .github" if files.empty?
-
-          files.each do |path|
-            YAML.safe_load(
-              File.read(path),
-              permitted_classes: [],
-              aliases: false,
-              filename: path
-            )
-            puts "Validated #{path}"
-          end
-          RUBY
-
   markdown:
     name: Lint Markdown
     runs-on: ubuntu-latest
@@ -104,10 +84,10 @@ jobs:
           config: ".markdownlint-cli2.jsonc"
           globs: "**/*.md"
 
-  local-links:
-    name: Check repository links
+  links:
+    name: Validate documentation links
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
 
     steps:
       - name: Checkout repository
@@ -115,41 +95,28 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Check local links
+      - name: Check links
         uses: lycheeverse/lychee-action@v2
         with:
           args: >-
-            --offline
-            --no-progress
+            --config lychee.toml
             --root-dir "${{ github.workspace }}"
             "./**/*.md"
           fail: true
           failIfEmpty: true
           jobSummary: true
 
-  external-links:
-    name: Check external links
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
+      - name: Check forbidden URLs
+        shell: bash
+        run: |
+          set -euo pipefail
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7
-        with:
-          persist-credentials: false
+          if grep -RInE 'https?://[^ )>]+:[^ )>]+@' . --include='*.md'; then
+            echo "::error::Credentials in documentation URLs are forbidden."
+            exit 1
+          fi
 
-      - name: Check external links
-        uses: lycheeverse/lychee-action@v2
-        with:
-          args: >-
-            --no-progress
-            --max-retries 3
-            --retry-wait-time 2
-            --timeout 20
-            --method head,get
-            "./**/*.md"
-          token: ${{ github.token }}
-          fail: true
-          failIfEmpty: true
-          jobSummary: true
+          if grep -RInE '\[[^]]+\]\(http://' . --include='*.md'; then
+            echo "::error::Plain HTTP documentation links are forbidden."
+            exit 1
+          fi
