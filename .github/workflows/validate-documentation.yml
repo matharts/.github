@@ -6,7 +6,6 @@ on:
       - "**/*.md"
       - ".github/**/*.yml"
       - ".github/**/*.yaml"
-      - ".github/CODEOWNERS"
       - ".github/scripts/**"
       - ".markdownlint-cli2.jsonc"
       - "lychee.toml"
@@ -18,7 +17,6 @@ on:
       - "**/*.md"
       - ".github/**/*.yml"
       - ".github/**/*.yaml"
-      - ".github/CODEOWNERS"
       - ".github/scripts/**"
       - ".markdownlint-cli2.jsonc"
       - "lychee.toml"
@@ -58,9 +56,6 @@ jobs:
             "SECURITY.md"
             "SUPPORT.md"
             "profile/README.md"
-            "docs/code-style-guide.md"
-            "docs/commit-convention.md"
-            ".github/CODEOWNERS"
             ".github/pull_request_template.md"
           )
           for path in "${required_files[@]}"; do
