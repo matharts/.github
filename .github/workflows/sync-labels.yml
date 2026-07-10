@@ -46,6 +46,25 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Diagnose label sync token
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.LABEL_SYNC_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          echo "Testing repository access..."
+          gh api \
+            -H "Accept: application/vnd.github+json" \
+            /repos/matharts/.github \
+            --jq '{full_name, private, archived, permissions}'
+
+          echo "Testing label read access..."
+          gh api \
+            -H "Accept: application/vnd.github+json" \
+            "/repos/matharts/.github/labels?per_page=1" \
+            --include
+
       - name: Run MathArts label sync
         uses: ./.github/actions/sync-labels
         with:
