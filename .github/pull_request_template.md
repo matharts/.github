@@ -13,8 +13,8 @@
 示例：
 Closes #123
 Related to #456
-RFC: docs/rfcs/0007-example.md
-ADR: docs/decisions/ADR-0004-example.md
+RFC：编号或链接
+ADR：编号或链接
 
 没有关联事项时填写“不适用”。
 -->
