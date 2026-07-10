@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       dry_run:
-        description: "仅预览变更，不实际修改标签"
+        description: "仅预览变更；关闭后才会实际修改标签"
         required: true
         type: boolean
         default: true
@@ -24,7 +24,7 @@ on:
       - ".github/workflows/sync-labels.yml"
 
   schedule:
-    # 每周一 UTC 03:17 检查并修复标签漂移。
+    # 每周一 UTC 03:17 预览标签漂移，不自动写入仓库。
     - cron: "17 3 * * 1"
 
 permissions:
@@ -36,7 +36,7 @@ concurrency:
 
 jobs:
   sync-labels:
-    name: Synchronize organization labels
+    name: Preview or synchronize organization labels
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -72,10 +72,10 @@ jobs:
           owner: ${{ github.repository_owner }}
           config_file: ".github/labels.yml"
 
+          # Push 和定时任务只做预览。只有手动触发并关闭 dry_run 才实际写入。
           dry_run: >-
-            ${{ github.event_name == 'workflow_dispatch'
-                && inputs.dry_run
-                || false }}
+            ${{ github.event_name != 'workflow_dispatch'
+                || inputs.dry_run }}
 
           repository: >-
             ${{ github.event_name == 'workflow_dispatch'
