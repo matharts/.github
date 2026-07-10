@@ -1,52 +1,53 @@
-name: Sync labels
+name: Sync organization labels
 
 on:
+  workflow_dispatch:
+
   push:
     branches:
       - main
     paths:
       - ".github/labels.yml"
+      - ".github/workflows/sync-labels.yml"
 
-  workflow_dispatch:
-    inputs:
-      dry_run:
-        description: "仅预览标签变更，不实际修改"
-        required: true
-        type: boolean
-        default: true
-
-  workflow_call:
-    inputs:
-      dry_run:
-        description: "仅预览标签变更，不实际修改"
-        required: false
-        type: boolean
-        default: false
+  schedule:
+    # 每周一 UTC 03:17 检查标签漂移。
+    - cron: "17 3 * * 1"
 
 permissions:
-  issues: write
+  contents: read
 
 concurrency:
-  group: sync-labels-${{ github.repository }}
+  group: sync-organization-labels
   cancel-in-progress: false
 
 jobs:
   sync-labels:
-    name: Sync organization labels
+    name: Sync labels to all repositories
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 30
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Sync labels
-        uses: EndBug/label-sync@52074158190acb45f3077f9099fea818aa43f97a # v2.3.3
+        uses: srealmoreno/label-sync-action@v2
         with:
-          config-file: >-
-            https://raw.githubusercontent.com/matharts/.github/main/.github/labels.yml
+          token: ${{ secrets.LABEL_SYNC_TOKEN }}
 
-          # 保留仓库自己的 area:*、package:*、platform:* 等扩展标签。
-          delete-other-labels: false
+          # 自动发现 MathArts 组织内的仓库。
+          auto-discover-repos: true
+          account-type: org
+          owner: matharts
 
-          # 手动执行默认仅预览；push 和定时调用默认实际同步。
-          dry-run: ${{ inputs.dry_run || false }}
+          # 不同步归档、禁用或 Fork 仓库。
+          exclude-archived-repos: true
+          exclude-disabled-repos: true
+          exclude-forked-repos: true
 
-          token: ${{ github.token }}
+          # 使用中央标签配置。
+          config-file: ".github/labels.yml"
+
+          # 保留各仓库自己的 area:*、package:* 等扩展标签。
+          clean-labels: true
