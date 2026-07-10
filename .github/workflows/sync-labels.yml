@@ -1,0 +1,52 @@
+name: Sync labels
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/labels.yml"
+
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "仅预览标签变更，不实际修改"
+        required: true
+        type: boolean
+        default: true
+
+  workflow_call:
+    inputs:
+      dry_run:
+        description: "仅预览标签变更，不实际修改"
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  issues: write
+
+concurrency:
+  group: sync-labels-${{ github.repository }}
+  cancel-in-progress: false
+
+jobs:
+  sync-labels:
+    name: Sync organization labels
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Sync labels
+        uses: EndBug/label-sync@52074158190acb45f3077f9099fea818aa43f97a # v2.3.3
+        with:
+          config-file: >-
+            https://raw.githubusercontent.com/matharts/.github/main/.github/labels.yml
+
+          # 保留仓库自己的 area:*、package:*、platform:* 等扩展标签。
+          delete-other-labels: false
+
+          # 手动执行默认仅预览；push 和定时调用默认实际同步。
+          dry-run: ${{ inputs.dry_run || false }}
+
+          token: ${{ github.token }}
