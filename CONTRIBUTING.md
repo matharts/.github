@@ -270,7 +270,7 @@ git switch -c <类型>/<简要描述>
 * 不无故降低类型安全或测试覆盖；
 * 与已接受的架构决定和规范保持一致。
 
-通用约定参见 MathArts 的[代码风格指南](https://github.com/matharts/.github/blob/main/docs/code-style-guide.md)。项目仓库的本地规则优先于组织级通用指南。
+具体代码风格、格式化、Lint、类型检查和语言版本，以目标仓库的本地文档与自动化配置为准。
 
 ## 10. 术语、规则和知识数据
 
@@ -374,7 +374,7 @@ README 应用于项目介绍和快速开始，不应成为所有技术细节的�
 
 ## 13. Commit 规范
 
-MathArts 使用 Conventional Commits 风格。详细要求参见[Commit 规范](https://github.com/matharts/.github/blob/main/docs/commit-convention.md)。
+MathArts 默认使用 Conventional Commits 风格。目标仓库可以根据发布流程和工具链制定更具体的 Commit 要求。
 
 基本格式：
 
