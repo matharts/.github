@@ -13,11 +13,11 @@ require_https = true
 insecure = false
 method = "get"
 
-# Validate anchors and relative references.
-include_fragments = true
+# Validate anchor fragments and text fragments.
+include_fragments = "full"
 
-# Avoid false positives from generated or local-only files.
+# Skip URI schemes that are not HTTP resources.
 exclude = [
-  "mailto:*",
-  "javascript:*"
+  "^mailto:",
+  "^javascript:"
 ]
