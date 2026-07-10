@@ -1,0 +1,23 @@
+name: Sync organization labels
+
+on:
+  schedule:
+    # 每周一 03:17 UTC 检查标签漂移。
+    - cron: "17 3 * * 1"
+
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "仅预览标签变更，不实际修改"
+        required: true
+        type: boolean
+        default: true
+
+permissions:
+  issues: write
+
+jobs:
+  sync-labels:
+    uses: matharts/.github/.github/workflows/sync-labels.yml@main
+    with:
+      dry_run: ${{ inputs.dry_run || false }}
