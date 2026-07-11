@@ -1,5 +1,6 @@
 ---
-层级: Organization Integration
+层级: Organization
+职责限定: GitHub Platform Integration
 状态: Active
 负责人: MathArts maintainers
 ---
@@ -8,6 +9,8 @@
 
 维护 MathArts 在 GitHub 平台上的公共组织主页、默认社区健康文件、
 Issue/PR 模板和平台集成配置。
+
+本仓库属于 Organization 层，但只承担 GitHub 平台集成职责，不定义 MathArts 的组织架构、治理模型或工程规范。
 
 ## 职责范围
 

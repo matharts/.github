@@ -2,6 +2,8 @@
 
 本仓库维护 MathArts GitHub 组织的默认社区健康文件和跨仓库协作配置。
 
+本仓库的主要层级为 **Organization**，职责限定为 **GitHub Platform Integration**。正式边界以 [`CHARTER.md`](CHARTER.md) 为准；组织架构、治理和跨仓库规范由 [`matharts/ecosystem`](https://github.com/matharts/ecosystem) 维护。
+
 当组织内的项目仓库没有提供同类文件时，GitHub 会使用本仓库中的默认版本。项目特定的规则、架构和文档仍应在对应项目仓库中维护。
 
 ## 快速入口
