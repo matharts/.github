@@ -36,11 +36,16 @@ jobs:
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:
           persist-credentials: false
+      - uses: actions/create-github-app-token@v3
+        id: app-token
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
       - name: Apply MathArts label synchronization
         uses: ./.github/actions/sync-labels
         with:
-          token: ${{ secrets.LABEL_SYNC_WRITE_TOKEN }}
+          token: ${{ steps.app-token.outputs.token }}
           owner: ${{ github.repository_owner }}
           config_file: ".github/labels.yml"
           dry_run: "false"
