@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       repository:
-        description: "只同步指定仓库；留空同步全部仓库"
+        description: "只同步 Allowlist 中的指定仓库；留空同步全部"
         required: false
         type: string
         default: ""
@@ -51,5 +51,6 @@ jobs:
           token: ${{ steps.app-token.outputs.token }}
           owner: ${{ github.repository_owner }}
           config_file: ".github/labels.yml"
+          policy_file: ".github/label-policy.yml"
           dry_run: "false"
           repository: ${{ inputs.repository }}

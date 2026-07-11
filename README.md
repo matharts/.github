@@ -36,20 +36,28 @@
 
 ## 标签治理
 
-MathArts 的组织级标签由两个权威来源共同维护：
+MathArts 的组织级标签由三个职责不同的权威来源共同维护：
 
-| 文件                                                     | 职责                       |
-| ------------------------------------------------------ | ------------------------ |
-| [`.github/labels.yml`](.github/labels.yml)             | 定义标签名称、颜色、描述和旧标签别名       |
-| [`docs/label-governance.md`](docs/label-governance.md) | 定义标签的使用规则、维护责任、扩展边界和生命周期 |
+| 文件                                                     | 职责                                         |
+| ------------------------------------------------------ | ------------------------------------------ |
+| [`.github/labels.yml`](.github/labels.yml)             | 定义目标标签名称、颜色、描述，以及当前仍需执行的一对一迁移别名          |
+| [`.github/label-policy.yml`](.github/label-policy.yml) | 定义组织拥有的标签命名空间、历史受管名称和参与同步的仓库 Allowlist |
+| [`docs/label-governance.md`](docs/label-governance.md) | 定义标签的使用规则、维护责任、扩展边界和生命周期               |
 
-完整标签清单只在 `.github/labels.yml` 中维护，其他文档和模板不得复制第二份正式清单。
+完整目标标签清单只在 `.github/labels.yml` 中维护。同步器只会删除 `label-policy.yml` 声明为组织所有的标签，并保留仓库自行维护的扩展标签。
 
-标签同步只管理组织保留的 `type:*`、`status:*`、`priority:*`、`impact:*`、`process:*`、`resolution:*` 系列、贡献入口标签及其历史别名。项目仓库可以增加 `area:*`、`package:*`、`platform:*` 或其他项目特定标签，自动化会保留这些扩展标签。
+`label-policy.yml` 采用显式仓库 Allowlist。新增仓库不会自动进入标签同步范围；加入或移除仓库必须经过本仓库的 Pull Request。手动指定仓库时，也只能选择 Allowlist 中的仓库。
+
+历史标签的职责分为两层：
+
+* `labels.yml` 的 `aliases` 表示当前需要执行的一对一重命名；
+* `label-policy.yml` 的 `legacy_names` 表示组织仍然拥有并允许同步器清理的旧名称。
+
+从 `aliases` 移除迁移映射时，不应立即移除对应的 `legacy_names`；应先确认所有 Allowlist 仓库已完成清理，避免旧标签成为无人管理的残留。
 
 标签自动化分为两个权限边界：
 
-* [`preview-labels.yml`](.github/workflows/preview-labels.yml) 在推送、定时任务或手动触发时使用只读 `github.token` 预览公开可见仓库的标签漂移，不读取 GitHub App 私钥；
+* [`preview-labels.yml`](.github/workflows/preview-labels.yml) 在 Pull Request、推送、定时任务或手动触发时使用只读 `github.token` 预览 Allowlist 仓库的标签漂移，不读取 GitHub App 私钥；
 * [`sync-labels.yml`](.github/workflows/sync-labels.yml) 只允许从 `main` 手动触发真实变更，并绑定 `label-governance-production` Environment。
 
 真实同步通过 GitHub App 生成短时效 Installation Access Token。`label-governance-production` Environment 必须配置：

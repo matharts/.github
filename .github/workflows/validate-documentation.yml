@@ -59,6 +59,8 @@ jobs:
             "SUPPORT.md"
             "profile/README.md"
             ".github/pull_request_template.md"
+            ".github/labels.yml"
+            ".github/label-policy.yml"
           )
           for path in "${required_files[@]}"; do
             test -s "$path" || exit 1
@@ -94,7 +96,7 @@ jobs:
       - name: Check immutable GitHub Action references
         run: ruby .github/scripts/validate-action-pins.rb
 
-      - name: Test label synchronization behavior
+      - name: Test label synchronization behavior and policy
         run: ruby .github/actions/sync-labels/test_sync_labels.rb
 
   links:
