@@ -13,6 +13,7 @@
 | 社区行为规范      | [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)             |
 | 报告安全漏洞      | [`SECURITY.md`](SECURITY.md)                           |
 | 使用和维护标签     | [`docs/label-governance.md`](docs/label-governance.md) |
+| 核查 GitHub 设置 | [`docs/github-settings-baseline.md`](docs/github-settings-baseline.md) |
 
 ## 本仓库维护什么
 
