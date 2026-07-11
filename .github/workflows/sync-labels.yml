@@ -1,83 +1,47 @@
-name: Sync organization labels
+name: Apply organization labels
 
 on:
   workflow_dispatch:
     inputs:
-      dry_run:
-        description: "仅预览变更；关闭后才会实际修改标签"
-        required: true
-        type: boolean
-        default: true
-
       repository:
         description: "只同步指定仓库；留空同步全部仓库"
         required: false
         type: string
         default: ""
 
-  push:
-    branches:
-      - main
-    paths:
-      - ".github/labels.yml"
-      - ".github/actions/sync-labels/**"
-      - ".github/workflows/sync-labels.yml"
-
-  schedule:
-    # 每周一 UTC 03:17 预览标签漂移，不自动写入仓库。
-    - cron: "17 3 * * 1"
+      confirm_apply:
+        description: "确认执行真实标签变更"
+        required: true
+        type: boolean
+        default: false
 
 permissions:
   contents: read
 
 concurrency:
-  group: sync-organization-labels
+  group: apply-organization-labels
   cancel-in-progress: false
 
 jobs:
-  sync-labels:
-    name: Preview or synchronize organization labels
+  apply-labels:
+    name: Apply organization label changes
+    if: ${{ github.ref == 'refs/heads/main' && inputs.confirm_apply }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    environment:
+      name: label-governance-production
 
     steps:
       - name: Checkout governance repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:
           persist-credentials: false
 
-      - name: Diagnose label sync token
-        shell: bash
-        env:
-          GH_TOKEN: ${{ secrets.LABEL_SYNC_TOKEN }}
-        run: |
-          set -euo pipefail
-
-          echo "Testing repository access..."
-          gh api \
-            -H "Accept: application/vnd.github+json" \
-            /repos/matharts/.github \
-            --jq '{full_name, private, archived, permissions}'
-
-          echo "Testing label read access..."
-          gh api \
-            -H "Accept: application/vnd.github+json" \
-            "/repos/matharts/.github/labels?per_page=1" \
-            --include
-
-      - name: Run MathArts label sync
+      - name: Apply MathArts label synchronization
         uses: ./.github/actions/sync-labels
         with:
-          token: ${{ secrets.LABEL_SYNC_TOKEN }}
+          token: ${{ secrets.LABEL_SYNC_WRITE_TOKEN }}
           owner: ${{ github.repository_owner }}
           config_file: ".github/labels.yml"
-
-          # Push 和定时任务只做预览。只有手动触发并关闭 dry_run 才实际写入。
-          dry_run: >-
-            ${{ github.event_name != 'workflow_dispatch'
-                || inputs.dry_run }}
-
-          repository: >-
-            ${{ github.event_name == 'workflow_dispatch'
-                && inputs.repository
-                || '' }}
+          dry_run: "false"
+          repository: ${{ inputs.repository }}
