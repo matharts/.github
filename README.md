@@ -49,10 +49,18 @@ MathArts 的组织级标签由两个权威来源共同维护：
 
 标签自动化分为两个权限边界：
 
-* [`preview-labels.yml`](.github/workflows/preview-labels.yml) 在推送、定时任务或手动触发时使用只读 `github.token` 预览公开可见仓库的标签漂移，不读取跨仓库写令牌；
+* [`preview-labels.yml`](.github/workflows/preview-labels.yml) 在推送、定时任务或手动触发时使用只读 `github.token` 预览公开可见仓库的标签漂移，不读取 GitHub App 私钥；
 * [`sync-labels.yml`](.github/workflows/sync-labels.yml) 只允许从 `main` 手动触发真实变更，并绑定 `label-governance-production` Environment。
 
-真实同步所需的 `LABEL_SYNC_WRITE_TOKEN` 必须配置为 `label-governance-production` 的 Environment Secret，而不是普通仓库 Secret。该 Environment 应在仓库设置中启用 Required reviewers，并禁止发起者自行批准。
+真实同步通过 GitHub App 生成短时效 Installation Access Token。`label-governance-production` Environment 必须配置：
+
+* Environment Variable `APP_CLIENT_ID`；
+* Environment Secret `APP_PRIVATE_KEY`；
+* Required reviewers，并在账户方案支持时禁止发起者自行批准。
+
+GitHub App 应只安装到参与组织级标签治理的仓库，并采用最小仓库权限；当前标签同步至少需要 `Issues: Read and write`，`Metadata: Read` 由 GitHub 自动授予。轮换 GitHub App 私钥时，应同步更新 `APP_PRIVATE_KEY`。
+
+所有外部 GitHub Action 和可复用工作流引用必须固定到完整的 40 位 Commit SHA，并在行尾注释人类可读版本。`.github/scripts/validate-action-pins.rb` 负责强制检查，Dependabot 负责提出后续版本更新。
 
 ## 维护原则
 
