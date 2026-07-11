@@ -9,6 +9,13 @@ on:
         type: string
         default: ""
 
+  pull_request:
+    paths:
+      - ".github/labels.yml"
+      - ".github/actions/sync-labels/**"
+      - ".github/workflows/preview-labels.yml"
+      - ".github/workflows/sync-labels.yml"
+
   push:
     branches:
       - main
@@ -27,7 +34,7 @@ permissions:
   issues: read
 
 concurrency:
-  group: preview-organization-labels
+  group: preview-organization-labels-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
