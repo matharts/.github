@@ -91,6 +91,9 @@ jobs:
       - name: Check Issue Form labels
         run: ruby .github/scripts/validate-issue-labels.rb
 
+      - name: Check immutable GitHub Action references
+        run: ruby .github/scripts/validate-action-pins.rb
+
       - name: Test label synchronization behavior
         run: ruby .github/actions/sync-labels/test_sync_labels.rb
 
