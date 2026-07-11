@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       repository:
-        description: "只预览指定仓库；留空预览全部可见仓库"
+        description: "只预览 Allowlist 中的指定仓库；留空预览全部"
         required: false
         type: string
         default: ""
@@ -12,6 +12,7 @@ on:
   pull_request:
     paths:
       - ".github/labels.yml"
+      - ".github/label-policy.yml"
       - ".github/actions/sync-labels/**"
       - ".github/workflows/preview-labels.yml"
       - ".github/workflows/sync-labels.yml"
@@ -21,12 +22,13 @@ on:
       - main
     paths:
       - ".github/labels.yml"
+      - ".github/label-policy.yml"
       - ".github/actions/sync-labels/**"
       - ".github/workflows/preview-labels.yml"
       - ".github/workflows/sync-labels.yml"
 
   schedule:
-    # 每周一 UTC 03:17 检查公开可见仓库的标签漂移。
+    # 每周一 UTC 03:17 检查 Allowlist 仓库的标签漂移。
     - cron: "17 3 * * 1"
 
 permissions:
@@ -55,6 +57,7 @@ jobs:
           token: ${{ github.token }}
           owner: ${{ github.repository_owner }}
           config_file: ".github/labels.yml"
+          policy_file: ".github/label-policy.yml"
           dry_run: "true"
           repository: >-
             ${{ github.event_name == 'workflow_dispatch'
