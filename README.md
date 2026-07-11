@@ -47,7 +47,12 @@ MathArts 的组织级标签由两个权威来源共同维护：
 
 标签同步只管理组织保留的 `type:*`、`status:*`、`priority:*`、`impact:*`、`process:*`、`resolution:*` 系列、贡献入口标签及其历史别名。项目仓库可以增加 `area:*`、`package:*`、`platform:*` 或其他项目特定标签，自动化会保留这些扩展标签。
 
-推送和定时任务只预览标签漂移。实际修改必须通过手动触发标签同步工作流，并明确关闭 Dry Run。
+标签自动化分为两个权限边界：
+
+* [`preview-labels.yml`](.github/workflows/preview-labels.yml) 在推送、定时任务或手动触发时使用只读 `github.token` 预览公开可见仓库的标签漂移，不读取跨仓库写令牌；
+* [`sync-labels.yml`](.github/workflows/sync-labels.yml) 只允许从 `main` 手动触发真实变更，并绑定 `label-governance-production` Environment。
+
+真实同步所需的 `LABEL_SYNC_WRITE_TOKEN` 必须配置为 `label-governance-production` 的 Environment Secret，而不是普通仓库 Secret。该 Environment 应在仓库设置中启用 Required reviewers，并禁止发起者自行批准。
 
 ## 维护原则
 
