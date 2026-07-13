@@ -20,9 +20,12 @@ unless labels.is_a?(Array)
   exit 1
 end
 
-canonical_names = labels.filter_map do |entry|
-  entry["name"].to_s.strip if entry.is_a?(Hash)
-end.reject(&:empty?).to_set
+canonical_names = labels.map do |entry|
+  next unless entry.is_a?(Hash)
+
+  name = entry["name"].to_s.strip
+  name unless name.empty?
+end.compact.to_set
 
 Dir.glob(ISSUE_TEMPLATE_GLOB).sort.each do |file|
   document = YAML.safe_load(

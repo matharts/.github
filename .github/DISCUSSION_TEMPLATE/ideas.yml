@@ -1,0 +1,61 @@
+title: "[Idea] "
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ideas 用于尚未形成具体 Issue 的方向、需求和跨仓库改进。
+
+        请先描述问题和期望结果，再讨论实现方案。
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: "问题与场景"
+      description: "谁在什么情况下遇到了什么问题？"
+    validations:
+      required: true
+
+  - type: textarea
+    id: outcome
+    attributes:
+      label: "期望结果"
+      description: "什么变化能够说明这个想法产生了价值？"
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: "可能方案与替代方案"
+      description: "可以提出方案，但不要求已经完成设计。"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: "影响范围"
+      options:
+        - "单个项目"
+        - "多个项目"
+        - "组织协作或治理"
+        - "尚不确定"
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: "证据、来源或相关工作"
+      description: "可提供案例、资料来源、已有 Issue 或其他实现。"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: conduct
+    attributes:
+      label: "社区约定"
+      options:
+        - label: "我已搜索已有讨论，并愿意遵守 MathArts 社区行为准则。"
+          required: true

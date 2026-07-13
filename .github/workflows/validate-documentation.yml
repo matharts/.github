@@ -58,6 +58,8 @@ jobs:
             "SECURITY.md"
             "SUPPORT.md"
             "profile/README.md"
+            ".github/DISCUSSION_TEMPLATE/ideas.yml"
+            ".github/DISCUSSION_TEMPLATE/q-a.yml"
             ".github/pull_request_template.md"
             ".github/labels.yml"
             ".github/label-policy.yml"

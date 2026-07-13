@@ -30,7 +30,6 @@ repositories:
   # 只有显式列出的仓库会被预览或修改。新增仓库不会自动进入同步范围。
   include:
     - ".github"
-    - "ecosystem"
     - "epheon"
     - "matharts"
     - "skills"
