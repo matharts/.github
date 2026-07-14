@@ -4,7 +4,7 @@
 require "set"
 require "yaml"
 
-LABEL_CONFIG = ".github/labels.yml"
+LABEL_CONFIG = ENV.fetch("LABEL_CONFIG", ".github/labels.yml")
 ISSUE_TEMPLATE_GLOB = ".github/ISSUE_TEMPLATE/*.{yml,yaml}"
 ERRORS = []
 

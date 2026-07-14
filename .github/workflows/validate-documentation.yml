@@ -57,8 +57,6 @@ jobs:
             ".github/DISCUSSION_TEMPLATE/ideas.yml"
             ".github/DISCUSSION_TEMPLATE/q-a.yml"
             ".github/pull_request_template.md"
-            ".github/labels.yml"
-            ".github/label-policy.yml"
           )
           for path in "${required_files[@]}"; do
             test -s "$path" || exit 1
@@ -73,10 +71,20 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Checkout authoritative MathArts labels
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          repository: matharts/sync-labels-action
+          ref: bd93652235bba0e635080d0d65e3ff4695c4f546
+          path: .sync-labels-action
+          persist-credentials: false
+
       - name: Check repository references
         run: ruby .github/scripts/validate-document-references.rb
 
       - name: Check Issue Form labels
+        env:
+          LABEL_CONFIG: .sync-labels-action/.github/labels.yml
         run: ruby .github/scripts/validate-issue-labels.rb
 
       - name: Check immutable GitHub Action references

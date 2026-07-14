@@ -14,7 +14,7 @@
 | 获取帮助 | [支持指南](SUPPORT.md) |
 | 了解社区行为边界 | [社区行为准则](CODE_OF_CONDUCT.md) |
 | 私密报告安全漏洞 | [安全策略](SECURITY.md) |
-| 使用组织级标签 | [标签治理](docs/label-governance.md) |
+| 使用组织级标签 | [标签治理](https://github.com/matharts/sync-labels-action/blob/main/docs/label-governance.md) |
 
 ## 职责边界
 
@@ -24,7 +24,7 @@
 - `GOVERNANCE.md`：组织角色、决策规则和仓库生命周期
 - 默认 `CONTRIBUTING.md`、`CODE_OF_CONDUCT.md`、`SECURITY.md` 与 `SUPPORT.md`
 - 默认 Issue、Pull Request 与 Discussion 模板
-- 组织级标签定义、同步策略和相关自动化
+- 指向组织级标签治理仓库的入口
 - 对上述文件进行验证的 GitHub Actions
 
 本仓库不负责：
@@ -54,30 +54,27 @@
 ├── CODE_OF_CONDUCT.md
 ├── SECURITY.md
 ├── SUPPORT.md
-├── docs/label-governance.md
 └── .github/
     ├── CODEOWNERS
     ├── ISSUE_TEMPLATE/
     ├── DISCUSSION_TEMPLATE/
     ├── pull_request_template.md
-    ├── labels.yml
-    ├── label-policy.yml
     └── workflows/
 ```
 
 ## 标签与自动化
 
-组织级标签由三个权威来源共同定义：
+组织级标签由独立的 [`matharts/sync-labels-action`](https://github.com/matharts/sync-labels-action) 仓库统一维护：
 
 | 文件 | 职责 |
 | --- | --- |
-| [`.github/labels.yml`](.github/labels.yml) | 标签名称、颜色、描述和迁移别名 |
-| [`.github/label-policy.yml`](.github/label-policy.yml) | 受管命名空间、历史名称和仓库 Allowlist |
-| [`docs/label-governance.md`](docs/label-governance.md) | 使用规则、扩展边界和变更流程 |
+| [`labels.yml`](https://github.com/matharts/sync-labels-action/blob/main/.github/labels.yml) | 标签名称、颜色、描述和迁移别名 |
+| [`label-policy.yml`](https://github.com/matharts/sync-labels-action/blob/main/.github/label-policy.yml) | 受管命名空间、历史名称和仓库 Allowlist |
+| [`label-governance.md`](https://github.com/matharts/sync-labels-action/blob/main/docs/label-governance.md) | 使用规则、扩展边界和变更流程 |
 
-[`preview-labels.yml`](.github/workflows/preview-labels.yml) 只读预览标签漂移；[`sync-labels.yml`](.github/workflows/sync-labels.yml) 只能从 `main` 手动执行真实同步，并受 `label-governance-production` Environment 保护。同步实现由独立的 [`matharts/sync-labels-action`](https://github.com/matharts/sync-labels-action) 仓库维护，并固定到经过审核的提交 SHA。
+[`preview-labels.yml`](https://github.com/matharts/sync-labels-action/blob/main/.github/workflows/preview-labels.yml) 只读预览标签漂移；[`sync-labels.yml`](https://github.com/matharts/sync-labels-action/blob/main/.github/workflows/sync-labels.yml) 只能从 `main` 手动执行真实同步，并受 `label-governance-production` Environment 保护。
 
-真实同步使用 GitHub App 的短时效令牌。Environment 中只应保存必要的 `APP_CLIENT_ID` 和 `APP_PRIVATE_KEY`，并配置 Required reviewers。
+真实同步使用 GitHub App 的短时效令牌。`sync-labels-action` 仓库的 Environment 中只应保存必要的 `APP_CLIENT_ID` 和 `APP_PRIVATE_KEY`，并配置 Required reviewers。
 
 ## 维护原则
 
