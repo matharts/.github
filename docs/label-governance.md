@@ -145,6 +145,7 @@ ready
 
 - [`preview-labels.yml`](../.github/workflows/preview-labels.yml) 使用只读权限预览差异
 - [`sync-labels.yml`](../.github/workflows/sync-labels.yml) 只能从 `main` 手动触发真实修改
+- 同步实现由独立的 [`matharts/sync-labels-action`](https://github.com/matharts/sync-labels-action) 仓库维护，并固定到经过审核的提交 SHA
 - 真实同步受 `label-governance-production` Environment 和 GitHub App 最小权限保护
 
 新增、归档、转移或删除仓库时，必须同步检查 Allowlist。先运行预览并审查创建、重命名、更新、删除和保留项，再批准真实同步。

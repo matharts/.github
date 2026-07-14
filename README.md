@@ -62,7 +62,6 @@
     ├── pull_request_template.md
     ├── labels.yml
     ├── label-policy.yml
-    ├── actions/
     └── workflows/
 ```
 
@@ -76,7 +75,7 @@
 | [`.github/label-policy.yml`](.github/label-policy.yml) | 受管命名空间、历史名称和仓库 Allowlist |
 | [`docs/label-governance.md`](docs/label-governance.md) | 使用规则、扩展边界和变更流程 |
 
-[`preview-labels.yml`](.github/workflows/preview-labels.yml) 只读预览标签漂移；[`sync-labels.yml`](.github/workflows/sync-labels.yml) 只能从 `main` 手动执行真实同步，并受 `label-governance-production` Environment 保护。
+[`preview-labels.yml`](.github/workflows/preview-labels.yml) 只读预览标签漂移；[`sync-labels.yml`](.github/workflows/sync-labels.yml) 只能从 `main` 手动执行真实同步，并受 `label-governance-production` Environment 保护。同步实现由独立的 [`matharts/sync-labels-action`](https://github.com/matharts/sync-labels-action) 仓库维护，并固定到经过审核的提交 SHA。
 
 真实同步使用 GitHub App 的短时效令牌。Environment 中只应保存必要的 `APP_CLIENT_ID` 和 `APP_PRIVATE_KEY`，并配置 Required reviewers。
 

@@ -13,7 +13,6 @@ on:
     paths:
       - ".github/labels.yml"
       - ".github/label-policy.yml"
-      - ".github/actions/sync-labels/**"
       - ".github/workflows/preview-labels.yml"
       - ".github/workflows/sync-labels.yml"
 
@@ -23,7 +22,6 @@ on:
     paths:
       - ".github/labels.yml"
       - ".github/label-policy.yml"
-      - ".github/actions/sync-labels/**"
       - ".github/workflows/preview-labels.yml"
       - ".github/workflows/sync-labels.yml"
 
@@ -52,7 +50,7 @@ jobs:
           persist-credentials: false
 
       - name: Preview MathArts label synchronization
-        uses: ./.github/actions/sync-labels
+        uses: matharts/sync-labels-action@32418e17a7ccbeee1b0f59b9b7a7f6ea1816e855
         with:
           token: ${{ github.token }}
           owner: ${{ github.repository_owner }}

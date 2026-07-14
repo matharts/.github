@@ -7,7 +7,6 @@ on:
       - ".github/**/*.yml"
       - ".github/**/*.yaml"
       - ".github/scripts/**"
-      - ".github/actions/sync-labels/**"
       - "lychee.toml"
 
   push:
@@ -18,7 +17,6 @@ on:
       - ".github/**/*.yml"
       - ".github/**/*.yaml"
       - ".github/scripts/**"
-      - ".github/actions/sync-labels/**"
       - "lychee.toml"
 
   workflow_dispatch:
@@ -83,9 +81,6 @@ jobs:
 
       - name: Check immutable GitHub Action references
         run: ruby .github/scripts/validate-action-pins.rb
-
-      - name: Test label synchronization behavior and policy
-        run: ruby .github/actions/sync-labels/test_sync_labels.rb
 
   links:
     name: Validate documentation links

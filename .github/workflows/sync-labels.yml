@@ -46,7 +46,7 @@ jobs:
           owner: ${{ github.repository_owner }}
 
       - name: Apply MathArts label synchronization
-        uses: ./.github/actions/sync-labels
+        uses: matharts/sync-labels-action@32418e17a7ccbeee1b0f59b9b7a7f6ea1816e855
         with:
           token: ${{ steps.app-token.outputs.token }}
           owner: ${{ github.repository_owner }}
