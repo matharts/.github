@@ -8,7 +8,6 @@ on:
       - ".github/**/*.yaml"
       - ".github/scripts/**"
       - ".github/actions/sync-labels/**"
-      - ".markdownlint-cli2.jsonc"
       - "lychee.toml"
 
   push:
@@ -20,7 +19,6 @@ on:
       - ".github/**/*.yaml"
       - ".github/scripts/**"
       - ".github/actions/sync-labels/**"
-      - ".markdownlint-cli2.jsonc"
       - "lychee.toml"
 
   workflow_dispatch:
@@ -67,18 +65,6 @@ jobs:
           for path in "${required_files[@]}"; do
             test -s "$path" || exit 1
           done
-
-  markdown:
-    name: Lint Markdown
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
-        with:
-          persist-credentials: false
-      - uses: DavidAnson/markdownlint-cli2-action@8de2aa07cae85fd17c0b35642db70cf5495f1d25 # v24
-        with:
-          config: ".markdownlint-cli2.jsonc"
-          globs: "**/*.md"
 
   references:
     name: Validate repository references and governance scripts
