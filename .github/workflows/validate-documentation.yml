@@ -75,7 +75,7 @@ jobs:
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:
           repository: matharts/sync-labels-action
-          ref: bd93652235bba0e635080d0d65e3ff4695c4f546
+          ref: a00dfc35f02c9bb6151ca84c1f76a846892f7b9c
           path: .sync-labels-action
           persist-credentials: false
 
