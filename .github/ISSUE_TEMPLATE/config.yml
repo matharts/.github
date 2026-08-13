@@ -1,4 +1,6 @@
-blank_issues_enabled: false
+# 允许空白 Issue，供 Renovate Dependency Dashboard 等自动化创建常驻议题。
+# 人工报告仍应使用 Issue Form；开放讨论、安全和社区行为问题继续走下方入口。
+blank_issues_enabled: true
 
 contact_links:
   - name: "开放式讨论与方向建议"
