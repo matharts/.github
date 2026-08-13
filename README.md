@@ -43,6 +43,8 @@
 > [!IMPORTANT]
 > 项目仓库一旦创建自己的 `.github/ISSUE_TEMPLATE/` 目录，组织级默认 Issue 模板将不再应用。项目维护者应提供完整的本地问题入口。
 
+组织默认允许空白 Issue，供 Renovate Dependency Dashboard 等自动化创建常驻议题。人工报告仍应使用 Issue Form；开放讨论、安全和社区行为问题继续走 `config.yml` 中的 contact links。
+
 ## 仓库结构
 
 ```text
